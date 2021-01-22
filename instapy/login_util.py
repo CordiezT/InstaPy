@@ -272,7 +272,11 @@ def login_user(
     except (WebDriverException, OSError, IOError):
         # Just infor the user, not an error
         logger.info("- Cookie file not found, creating cookie...")
-
+    try:
+        cookie_elem = browser.find_element_by_xpath("//button[text()='Accept']")
+    except:
+        cookie_elem = None
+        
     if login_state and cookie_loaded:
         # Cookie loaded and joined IG, dismiss following features if availables
         dismiss_notification_offer(browser, logger)
